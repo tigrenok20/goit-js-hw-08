@@ -89,6 +89,7 @@ galleryRootElement.addEventListener("click", (e) => {
 
   const clone = e.target.cloneNode();
   clone.src = clone.attributes["data-source"].value;
+  console.log(clone.src);
   const instance = basicLightbox.create(clone.outerHTML);
 
   instance.show();
