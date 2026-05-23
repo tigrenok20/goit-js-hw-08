@@ -95,9 +95,7 @@ galleryRootElement.addEventListener("click", (e) => {
   clone.removeAttribute("height");
   clone.classList.remove("gallery-image");
   console.log(clone.src);
-  const handleCloseModal = () => instance.close();
-  const instance = basicLightbox.create(
-    `
+  const instance = basicLightbox.create(`
     <div class="modal">
         <p>
             ${clone.alt}
@@ -106,14 +104,12 @@ galleryRootElement.addEventListener("click", (e) => {
             ${clone.outerHTML}
         </p>
     </div>
-`,
-    { onClose: () => modal.removeEventListener("click", handleCloseModal) },
-  );
+`);
 
   instance.show();
 
   const modal = document.querySelector(".modal");
-  modal.addEventListener("click", handleCloseModal);
+  modal.addEventListener("click", () => instance.close(), { once: true });
 });
 galleryRootElement
   .querySelectorAll(".gallery a")
