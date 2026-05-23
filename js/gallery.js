@@ -69,16 +69,16 @@ const imagesHTML = images
   .map(
     (image) =>
       `<li class="gallery-item">
-      <a class="gallery-link" href="${image.original}">
-        <img
-          class="gallery-image"
-          src="${image.preview}"
-          data-source="${image.original}"
-          alt="${image.description}"
-          width="360" height="200"
-        />
-      </a>
-    </li>`,
+        <a class="gallery-link" href="${image.original}">
+            <img
+            class="gallery-image"
+            src="${image.preview}"
+            data-source="${image.original}"
+            alt="${image.description}"
+            width="360" height="200"
+            />
+        </a>
+        </li>`,
   )
   .join("\n");
 
@@ -89,12 +89,27 @@ galleryRootElement.addEventListener("click", (e) => {
     return;
   }
 
-  const clone = e.target.cloneNode();
+  const clone = e.target.cloneNode(true);
   clone.src = clone.attributes["data-source"].value;
+  clone.removeAttribute("width");
+  clone.removeAttribute("height");
+  clone.classList.remove("gallery-image");
   console.log(clone.src);
-  const instance = basicLightbox.create(clone.outerHTML);
+  const instance = basicLightbox.create(`
+    <div class="modal">
+        <p>
+            ${clone.alt}
+        </p>
+        <p>
+            ${clone.outerHTML}
+        </p>
+    </div>
+`);
 
   instance.show();
+
+  const modal = document.querySelector(".modal");
+  modal.addEventListener("click", () => instance.close());
 });
 galleryRootElement
   .querySelectorAll(".gallery a")

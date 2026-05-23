@@ -25,3 +25,12 @@
   width: 376px;
   height: 208px;
 }
+
+.modal {
+  padding: 50px;
+  background-color: white;
+}
+
+.modal img {
+  width: 70vw;
+}
