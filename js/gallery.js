@@ -109,7 +109,9 @@ galleryRootElement.addEventListener("click", (e) => {
   instance.show();
 
   const modal = document.querySelector(".modal");
-  modal.addEventListener("click", () => instance.close());
+  const handleCloseModal = () => instance.close();
+  modal.addEventListener("click", handleCloseModal);
+  instance.onClose(() => modal.removeEventListener("click", handleCloseModal));
 });
 galleryRootElement
   .querySelectorAll(".gallery a")
