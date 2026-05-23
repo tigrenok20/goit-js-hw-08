@@ -65,10 +65,10 @@ const images = [
 ];
 
 const galleryRootElement = document.querySelector(".gallery");
-images.forEach((image) =>
-  galleryRootElement.insertAdjacentHTML(
-    "beforeend",
-    `<li class="gallery-item">
+const imagesHTML = images
+  .map(
+    (image) =>
+      `<li class="gallery-item">
       <a class="gallery-link" href="${image.original}">
         <img
           class="gallery-image"
@@ -79,8 +79,10 @@ images.forEach((image) =>
         />
       </a>
     </li>`,
-  ),
-);
+  )
+  .join("\n");
+
+galleryRootElement.insertAdjacentHTML("beforeend", imagesHTML);
 
 galleryRootElement.addEventListener("click", (e) => {
   if (e.target.tagName !== "IMG") {
